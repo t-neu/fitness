@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 6, 2016, 2:47:07 PM
+    Author     : Tom
+*/
+body {
+    
+}
+.male {
+    background-color: #c3d8fb;
+    color: #20173c;
+}
+.female {
+    background-color: #ffbcbc;
+    color: #5a0040;
+}
+
+.navbar-fixed-top .nav {
+    padding: 15px 0;
+}
+
+.navbar-fixed-top .navbar-brand {
+    padding: 0 15px;
+}
+
+@media(min-width:768px) {
+
+    .navbar-fixed-top .navbar-brand {
+        padding: 15px 0;
+    }
+}
+
+.st2 {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    width: 100px;
+    height: 100px;
+    animation-name: ckw;
+    animation-duration: 15.5s;
+    /* Things added */
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    /* <--- */
+}
+@keyframes ckw {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

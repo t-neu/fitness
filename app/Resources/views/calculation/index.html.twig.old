@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Calculation list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Age</th>
+                <th>Weight</th>
+                <th>Feet</th>
+                <th>Inches</th>
+                <th>Sex</th>
+                <th>Activity Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for calculation in calculations %}
+            <tr>
+                <td><a href="{{ path('bmr_show', { 'id': calculation.id }) }}">{{ calculation.id }}</a></td>
+                <td>{{ calculation.age }}</td>
+                <td>{{ calculation.weight }}</td>
+                <td>{{ calculation.feet }}</td>
+                <td>{{ calculation.inches }}</td>
+                <td>{% if calculation.sex %}Male{% else %}Female{% endif %}</td>
+                <td>{{ calculation.getActivity }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-default btn-xs" href="{{ path('bmr_show', { 'id': calculation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-default btn-xs" href="{{ path('bmr_edit', { 'id': calculation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('bmr_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

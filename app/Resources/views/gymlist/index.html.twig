@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>GymList list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for gymList in gymLists %}
+            <tr>
+                <td><a href="{{ path('gymlist_show', { 'id': gymList.id }) }}">{{ gymList.id }}</a></td>
+                <td>{{ gymList.name }}</td>
+                <td>{{ gymList.latitude }}</td>
+                <td>{{ gymList.longitude }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('gymlist_show', { 'id': gymList.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('gymlist_edit', { 'id': gymList.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('gymlist_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

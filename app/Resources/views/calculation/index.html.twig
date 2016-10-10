@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!--
+    <div>
+        <a class="btn btn-primary btn-lg" href="{{ path('bmr_new') }}">New BMR</a>
+    </div
+    -->
+    <h1>BMR Examples</h1>
+    <div class="row">
+            {% for calculation in calculations %}
+                    {% if (calculation.sex == 1) %}
+                        {% set bmr = (13.75 * (0.45359237 * calculation.weight)) + ( 5 * (2.54 * (calculation.feet * 12) + calculation.inches)) - (6.76 * calculation.age ) + 66 %}
+                        {% set bmrStyle = 'male' %}
+                    {% else %}
+                        {% set bmr = (9.56 * (0.45359237 * calculation.weight)) + ( 1.85 * (2.54 * (calculation.feet * 12) + calculation.inches)) - (4.68 * calculation.age ) + 655 %}
+                        {% set bmrStyle = 'female' %}
+                    {% endif %}
+                <div class="col-xs-6 col-sm-4 {{ bmrStyle }}" style="border: 1px solid #FFF; min-height: 335px;">                   
+                    {% if (calculation.getActivity == 'Sedentary Lifestyle (little or no exercise)') %}
+                        {% set bmrActivity = (bmr * 1.2) %}
+                    {% elseif (calculation.getActivity == 'Lightly Active Lifestyle (light exercise/sports 1-3 days/week)') %}
+                        {% set bmrActivity = (bmr * 1.375) %}
+                    {% elseif (calculation.getActivity == 'Moderately Active Lifestyle (moderate exercise/sports 3-5 days/week)') %}
+                        {% set bmrActivity = (bmr * 1.55) %}
+                    {% elseif (calculation.getActivity == 'Very Active Lifestyle (hard exercise/sports 6-7 days a week)') %}
+                        {% set bmrActivity = (bmr * 1.725) %}
+                    {% else %}
+                        {% set bmrActivity = (bmr * 1.9) %}
+                    {% endif %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;width:50%;">BMR</th>
+                                    <th style="text-align:center;width:50%;">BMR With Activity Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="bmr" style="text-align:center;"><h1>{{ bmr|round }}</h1></td>
+                                    <td class="bmr" style="text-align:center;"><h1>{{ bmrActivity|round }}</h1></td>
+                                </tr>
+                                <tr>
+                                    <td class="bmr" style="text-align:center;height:80px;"><h6>Base metabolic rate.</h6></td>
+                                    <td class="bmr" style="text-align:center;height:80px;"><h6>{{ calculation.activity }}</h6></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;width:25%;">Age</th>
+                                    <th style="text-align:center;width:25%;">Sex</th>
+                                    <th style="text-align:center;width:25%;">Height</th>
+                                    <th style="text-align:center;width:25%;">Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align:center;width:25%;">{{ calculation.age }}</td>
+                                    <td style="text-align:center;width:25%;">{% if calculation.sex %}Male{% else %}Female{% endif %}</td>
+                                    <td style="text-align:center;width:25%;">{{ calculation.feet }}'{{ calculation.inches }}</td>
+                                    <td style="text-align:center;width:25%;">{{ calculation.weight }}(lbs)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <!--
+                    <a class="btn btn-default btn-xs" href="{{ path('bmr_show', { 'id': calculation.id }) }}">show</a>
+                    <a class="btn btn-default btn-xs" href="{{ path('bmr_edit', { 'id': calculation.id }) }}">edit</a>
+                        -->
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(calculations) }}
+    </div>
+{% endblock %}
