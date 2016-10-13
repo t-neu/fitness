@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets filter='cssrewrite'
               '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap.css'
               '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/css/bootstrap-theme.css'
-              '@AppBundle/Resources/Public/css/custom.css'
+              '@AppBundle/Resources/public/css/custom.css'
             %}
             <link rel="stylesheet" href="{{ asset_url }}"/>
             {% endstylesheets %}
@@ -15,7 +16,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-inverse">
             <div class="container-fluid">
               <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header">
@@ -25,7 +26,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">NEUSTYLE</a>
+                <a class="navbar-brand" href="{{ path('homepage') }}">NEUSTYLE</a>
               </div>
 
               <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,23 +39,23 @@
                 </form> -->
                 {% if is_granted("ROLE_USER") %}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/gym">GYM</a></li>
-                        <li><a href="/bmr">BMR</a></li>
-                        <li><button onclick="window.location.href='/bmr/new'" type="button" class="btn btn-default navbar-btn">Create BMR</button></li>
+                        <li><a href="{{ path('gym') }}">Gym</a></li>
+                        <li><a href="{{ path('bmr') }}">BMR</a></li>
+                        <li><button onclick="window.location.href='{{ path('bmr_new') }}'" type="button" class="btn btn-default navbar-btn">Create BMR</button></li>
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }}<span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="/profile">Profile</a></li>
-                            <li><a href="/profile/edit">Edit</a></li>
+                            <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
+                            <li><a href="{{ path('fos_user_profile_edit') }}">Edit</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/logout">Logout</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                           </ul>
                         </li>
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/login">Login</a></li>
-                        <li><button onclick="window.location.href='/register'" type="button" class="btn btn-default navbar-btn">Sign Up</button></li>
+                        <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                        <li><button onclick="window.location.href='{{ path('fos_user_registration_register') }}'" type="button" class="btn btn-default navbar-btn">Sign Up</button></li>
                     </ul>
                 {% endif %}
               </div><!-- /.navbar-collapse -->
